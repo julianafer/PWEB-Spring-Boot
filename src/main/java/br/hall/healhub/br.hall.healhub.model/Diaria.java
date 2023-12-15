@@ -19,8 +19,8 @@ public class Diaria {
     private String exercicios;
     private String adicional;
 
-    public long gitId() {
-        return nome;
+    public long getId() {
+        return id;
     }
 
     public String getDataDia() {
@@ -28,7 +28,7 @@ public class Diaria {
     }
 
     public void setDatadia (String dataDia) {
-        this.dataDia = datadia;
+        this.dataDia = dataDia;
     }
 
     public String getEmocao() {
