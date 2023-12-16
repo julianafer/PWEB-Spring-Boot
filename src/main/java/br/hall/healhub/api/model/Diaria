@@ -1,4 +1,4 @@
-package br.hall.healhub.model;
+package br.hall.healhub.api.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -1,4 +1,4 @@
-package br.hall.healhub;
+package br.hall.healhub.api;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

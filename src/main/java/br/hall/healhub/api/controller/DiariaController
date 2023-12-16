@@ -1,7 +1,7 @@
-package br.hall.healhub.controller;
+package br.hall.healhub.api.controller;
 
-import br.hall.healhub.model.Diaria;
-import br.hall.healhub.service.DiariaService;
+import br.hall.healhub.api.model.Diaria;
+import br.hall.healhub.api.service.DiariaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

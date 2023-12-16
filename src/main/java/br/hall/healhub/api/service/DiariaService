@@ -1,7 +1,7 @@
-package br.hall.healhub.service;
+package br.hall.healhub.api.service;
 
-import br.hall.healhub.repositories.DiariaRepository;
-import br.hall.healhub.model.Diaria;
+import br.hall.healhub.api.repositories.DiariaRepository;
+import br.hall.healhub.api.model.Diaria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
