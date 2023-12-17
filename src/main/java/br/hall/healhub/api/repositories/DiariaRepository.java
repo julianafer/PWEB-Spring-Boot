@@ -7,8 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface DiariaRepository extends JpaRepository <Diaria Long> {
+public interface DiariaRepository extends JpaRepository <Diaria, Long>{
 
-    @Query ("SELECT u FROM Diaria u where d.coposDAgua >=3")
-        public List<Diaria> getMetaPraCima(); 
+    
 }

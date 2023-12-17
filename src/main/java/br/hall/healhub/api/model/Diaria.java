@@ -1,10 +1,6 @@
 package br.hall.healhub.api.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tb_diaria")
@@ -15,7 +11,7 @@ public class Diaria {
     private Long id;
     private String dataDia;
     private String emocao;
-    private String coposDAgua;
+    private Number coposDAgua;
     private String exercicios;
     private String adicional;
 
@@ -39,11 +35,11 @@ public class Diaria {
         this.emocao = emocao;
     }
 
-    public String getCoposDAgua() {
+    public Number getCoposDAgua() {
         return coposDAgua;
     }
 
-    public void setCoposDAgua (String coposDAgua) {
+    public void setCoposDAgua (Number coposDAgua) {
         this.coposDAgua = coposDAgua;
     }
 
