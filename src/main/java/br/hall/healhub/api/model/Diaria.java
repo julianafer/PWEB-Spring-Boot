@@ -15,6 +15,10 @@ public class Diaria {
     private String exercicios;
     private String adicional;
 
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
     public long getId() {
         return id;
     }
@@ -58,6 +62,15 @@ public class Diaria {
     public void setAdicional (String  adicional) {
         this.adicional = adicional;
     }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario (Usuario usuario) {
+        this.usuario = usuario;
+    }
+
 
     
 }

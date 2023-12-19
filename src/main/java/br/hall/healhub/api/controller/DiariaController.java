@@ -1,8 +1,14 @@
 package br.hall.healhub.api.controller;
 
 import br.hall.healhub.api.model.Diaria;
+import br.hall.healhub.api.model.Usuario;
 import br.hall.healhub.api.service.DiariaService;
+import jakarta.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+// import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,5 +52,18 @@ public class DiariaController {
    @DeleteMapping("/diarias/{id}")
    public void apagarDiaria(@PathVariable("id") Long id) {
        this.diariaService.apagar(id);
+   }
+
+   @PostMapping("/diarias/{id}/usuario")
+   public ResponseEntity<?> associarUsuarioDiaria(@PathVariable("id") Long diariaId, @RequestBody Usuario usuario) {
+    System.out.println(usuario); 
+        try {
+           Diaria diaria = diariaService.associarUsuarioDiaria(diariaId, usuario);
+           return ResponseEntity.ok(diaria);
+       } catch (EntityNotFoundException e) {
+           return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Diaria não encontrada");
+       } catch (Exception e) {
+           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao associar usuário à diária");
+       }
    }
 }
