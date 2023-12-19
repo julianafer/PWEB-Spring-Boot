@@ -1,10 +1,11 @@
 package br.hall.healhub.api.model;
 
 
+import java.util.List;
+
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Entity
 @Table(name = "tb_usuario")
@@ -17,6 +18,8 @@ public class Usuario {
     private String senha;
     private Number metaDAgua;
     private Number metros;
+    @OneToMany(mappedBy = "usuario")
+    private List<Diaria> diarias;
 
     public Long getId() {
         return id;

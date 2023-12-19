@@ -1,6 +1,7 @@
 package br.hall.healhub.api.service;
 
 import br.hall.healhub.api.repositories.DiariaRepository;
+import br.hall.healhub.api.repositories.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 // import br.hall.healhub.api.repositories.UsuarioRepository;
 import br.hall.healhub.api.model.Diaria;
@@ -14,15 +15,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 // import java.util.Optional;
+import java.util.Optional;
 
 @Service
 public class DiariaService {
 
     private DiariaRepository diariaRepository;
+    private UsuarioRepository usuarioRepository;
 
     @Autowired
-     public DiariaService(DiariaRepository diariaRepository) {
+     public DiariaService(DiariaRepository diariaRepository, UsuarioRepository usuarioRepository) {
          this.diariaRepository = diariaRepository;
+         this.usuarioRepository = usuarioRepository;
      }
 
     public List<Diaria> getDiarias() {
@@ -34,24 +38,46 @@ public class DiariaService {
     }
 
     @Transactional
-    public Diaria inserirOuAtualizar(Diaria diaria) {
+    public Diaria inserir(Diaria diaria, Usuario usuario) {
+        if (usuario != null && usuario.getId() == null) {
+            // Usuário não persistido, salve-o primeiro
+            usuarioRepository.save(usuario);
+        }
+
         Diaria diariaInserida = this.diariaRepository.save(diaria);
 
         if (diariaInserida.getCoposDAgua().intValue() < 0) {
             throw new RuntimeException("Quantidade de copos inválida");
         }
+
+        // Chama o método para associar usuário à diária, se o usuário não for nulo
+        if (usuario != null) {
+            associarUsuarioDiaria(diariaInserida.getId(), usuario);
+        }
+
         return diariaInserida;
-    
     }
 
-    public Diaria associarUsuarioDiaria(Long diariaId, Usuario usuario) {
-       Diaria diaria = diariaRepository.findById(diariaId)
-               .orElseThrow(() -> new EntityNotFoundException("Diaria não encontrada"));
-        
+     @Transactional
+    public Diaria atualizar(Diaria diaria){
+        return this.diariaRepository.save(diaria);
+    }
 
-       diaria.setUsuario(usuario);
-       return diaria;
-   }
+
+    @Transactional
+    public Diaria associarUsuarioDiaria(Long diariaId, Usuario usuario) {
+        Diaria diaria = diariaRepository.findById(diariaId)
+            .orElseThrow(() -> new EntityNotFoundException("Diaria não encontrada"));
+    
+    // Associa o usuário à diária
+    diaria.setUsuario(usuario);
+
+    // Salva as alterações no banco de dados
+    Diaria diariaAtualizada = diariaRepository.save(diaria);
+
+    return diariaAtualizada;
+}
+
 
 
     public void apagar(Long id) {

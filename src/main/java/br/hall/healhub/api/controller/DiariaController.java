@@ -1,6 +1,7 @@
 package br.hall.healhub.api.controller;
 
 import br.hall.healhub.api.model.Diaria;
+import br.hall.healhub.api.model.DiariaUsuarioRequest;
 import br.hall.healhub.api.model.Usuario;
 import br.hall.healhub.api.service.DiariaService;
 import jakarta.persistence.EntityNotFoundException;
@@ -40,13 +41,16 @@ public class DiariaController {
    }
 
    @PostMapping("/diarias")
-   public Diaria inserirDiaria(@RequestBody Diaria diaria){
-       return this.diariaService.inserirOuAtualizar(diaria);
+   public Diaria inserirDiaria(@RequestBody DiariaUsuarioRequest request){
+        Diaria diaria = request.getDiaria();
+        Usuario usuario = request.getUsuario();
+
+       return this.diariaService.inserir(diaria, usuario);
    }
 
    @PutMapping("/diarias/{id}")
    public Diaria atualizarDiaria(@RequestBody Diaria diaria){
-       return this.diariaService.inserirOuAtualizar(diaria);
+       return this.diariaService.atualizar(diaria);
    }
 
    @DeleteMapping("/diarias/{id}")
