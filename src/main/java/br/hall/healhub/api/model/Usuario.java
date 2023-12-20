@@ -18,7 +18,7 @@ public class Usuario {
     private String senha;
     private Number metaDAgua;
     private Number metros;
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Diaria> diarias;
 
     public Long getId() {
