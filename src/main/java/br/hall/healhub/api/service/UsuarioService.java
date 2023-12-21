@@ -2,6 +2,7 @@ package br.hall.healhub.api.service;
 
 import br.hall.healhub.api.repositories.UsuarioRepository;
 import br.hall.healhub.api.model.CustomException;
+import br.hall.healhub.api.model.Diaria;
 import br.hall.healhub.api.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class UsuarioService {
     }
 
     @Transactional
-    public Usuario inserirOuAtualizar(Usuario usuario) {
+    public Usuario inserir(Usuario usuario) {
         if (usuario.getNome() == null || usuario.getNome().isEmpty()) {
             throw new CustomException("O nome do usuário não pode ser vazio!");
         }
@@ -36,6 +37,12 @@ public class UsuarioService {
         }
         return this.usuarioRepository.save(usuario);
     }
+
+     @Transactional
+    public Usuario atualizar(Usuario usuario){
+        return this.usuarioRepository.save(usuario);
+    }
+
 
     public void apagar(Long id) {
         this.usuarioRepository.deleteById(id);

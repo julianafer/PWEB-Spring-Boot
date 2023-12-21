@@ -1,5 +1,6 @@
 package br.hall.healhub.api.controller;
 
+
 import br.hall.healhub.api.model.Usuario;
 import br.hall.healhub.api.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,13 +36,14 @@ public class UsuarioController {
 
    @PostMapping("/usuarios")
    public Usuario inserirUsuario(@RequestBody Usuario usuario) {
-        return this.usuarioService.inserirOuAtualizar(usuario);
+        return this.usuarioService.inserir(usuario);
    }
+
    
 
    @PutMapping("/usuarios/{id}")
    public Usuario atualizarUsuario(@RequestBody Usuario usuario){
-       return this.usuarioService.inserirOuAtualizar(usuario);
+       return this.usuarioService.atualizar(usuario);
    }
 
    @DeleteMapping("/usuarios/{id}")
